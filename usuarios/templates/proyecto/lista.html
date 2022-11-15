@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+
+<ul>
+    <table class="unstriped">
+        <thead style="background: orange">
+          <tr>
+            <th width="100">ID</th>
+            <th>{% trans "Proyectos" %}</th>
+            <th width="100">{% trans "Activo" %}</th>
+            <th width="200">{% trans "Acciones" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          {% for proyecto in proyectos %}
+          <tr style="background: pink;">
+            <td>{{ proyecto.id }}</td>
+            <td>{{ proyecto.nombre }}</td>
+            <td>{{ proyecto.is_active }}</td>
+            <td>
+              <div class="button-group">
+                <a class="button secondary" href="{% url 'proyecto_app:nuevo-nombre' proyecto.id %}" style="background: orange;" >{% trans "Modificar" %}</a>              
+                <a class="button warning" href="{% url 'proyecto_app:active-proyecto' proyecto.id %}">{% trans "Activar" %}</a>
+                <a class="button alert" href="{% url 'proyecto_app:elimine-proyecto' proyecto.id %}">{% trans "Eliminar" %}</a>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+    </table>          
+</ul>
+<a class="button" href="{% url 'proyecto_app:nuevo-proyecto' %}" style="background: orange;" >{% trans "Crear" %}</a>
+{% endblock content %}
+
+
+    

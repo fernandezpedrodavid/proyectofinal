@@ -1,0 +1,17 @@
+<html lang="es-ar">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{% endblock title %}</title>
+  {% block css %}{% endblock css %}
+</head>
+
+<body style='background:pink'>
+<h1> modificar nombre </h1>
+
+<form method='POST'>{% csrf_token %}
+    {{ form }}
+    <button type='submit'> Cambiar </button>
+</form>
+</body>

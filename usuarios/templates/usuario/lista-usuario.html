@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load i18n%}
+
+{% block content %}
+<ul>
+    <table class="unstriped">
+        <thead style=" background: orange;">
+          <tr>
+            <th width="100">{% trans "Código" %}</th>
+            <th width="200">Username</th>
+            <th width="200">{% trans "Nombre" %}</th>
+            <th width="200">{% trans "Tipo" %}</th>
+            <th width="100">{% trans "Activo" %}</th>
+            <th width="200">{% trans "Acciones" %}</th>
+          </tr>
+        </thead>
+        <tbody  style=" background: pink;" >
+          {% for usuario in usuarios %}
+          <tr  style=" background: pink;">
+            <td>{{ usuario.id }}</td>
+            <td>{{ usuario.username}}</td>
+            <td>{{ usuario.nombre }}</td>
+            <td>{{ usuario.tipo_usuario }}</td>
+            <td>{{ usuario.is_active }}</td>
+            <td>
+              <div class="button-group">
+                <a class="button secondary" href="{% url 'usuario_app:cambiar-usuario' usuario.id %}" style="background: orange;" >{% trans "Modificar" %}</a>              
+                <a class="button warning" href="{% url 'usuario_app:active-usuario' usuario.id %}">{% trans "Activar" %}</a>
+                <a class="button alert" href="{% url 'usuario_app:elimine-usuario' usuario.id %}">{% trans "Eliminar" %}</a>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+    </table>          
+</ul>
+<a class="button" href="{% url 'usuario_app:registre-usuario' %}" style="background: orange;" >{% trans "Crear" %} </a>
+{%endblock%}
+  

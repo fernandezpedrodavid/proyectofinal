@@ -1,0 +1,50 @@
+{% load static %}
+{% load i18n %}
+<html lang="es-ar">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel='stylesheet' href="{% static 'css/foundation.min.css' %}">
+  <link rel='stylesheet' href="{% static 'css/main.css' %}">
+  <link rel='stylesheet' media="(prefers-color-scheme: dark)" href="{% static 'css/dark.css' %}">
+  <link rel='stylesheet' media="(prefers-color-scheme: ligth)" href="{% static 'css/ligth.css' %}">
+  <script type="module" src="https://unpkg.com/dark-mode-toggle"></script>
+  <title>{% block title %}{% endblock title %}</title>
+  {% block css %}{% endblock css %}
+</head>
+<body>
+    <div class="grid-x">
+        <div class="cell small-2 medium-2">
+            <ul class="vertical menu">
+                <li><a href="{% url 'usuario_app:lista-usuario'%}">{% trans "Usuarios" %}</a></li>
+                <li><a href="{% url 'proyecto_app:lista-proyecto'%}">{% trans "Proyectos" %}</a></li>
+                <li><a href="{% url 'proyecto_app:lista-proyecto-usuario'%}">{% trans "Proyectos-Usuarios" %}</a></li>
+                <dark-mode-toggle id="dark-mode-toggle-1" appearance="toggle"
+                    remember="Remember this"></dark-mode-toggle>
+                <li><a href="{% url 'usuario_app:logout-usuario'%}">Logout</a></li>
+                <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                    <input name="next" type="hidden" value="{{ redirect_to }}">
+                    <select name="language" style="background:#2B5F8F">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% get_language_info_list for LANGUAGES as languages %}
+                        {% for language in languages %}
+                            <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                                {{ language.name_local }} ({{ language.code }})
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <input type="submit" value="Go" style="background:#2B5F8F">
+                </form>
+            </ul>
+        </div>
+        <div class="cell medium-10">
+            {% block content %}
+            {% endblock content %}
+        </div>    
+    </div>
+
+  {% block js %}{% endblock js %}
+</body>
+</html>

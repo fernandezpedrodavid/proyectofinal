@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+
+<ul>
+    <table class="unstriped">
+      <thead style="background: orange">
+          <tr>
+            <th width="100">ID</th>
+            <th>{% trans "Proyectos" %}</th>
+            <th width="200">{% trans "Usuarios" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          {% for proyecto in proyectousuario %}
+          <tr style="background: pink;">
+            <td>{{ proyecto.id }}</td>
+            <td>{{ proyecto.proyecto_id}}</td>
+            <td>{{ proyecto.usuario_id  }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+    </table>          
+</ul>
+
+<a class="button align-center" href="{% url 'proyecto_app:crear-proyecto-usuario' %}" style="background: orange;" >{% trans "Crear" %}</a>
+
+{% endblock content %}
+
+
+
+    

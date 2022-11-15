@@ -1,0 +1,21 @@
+{% load static %}
+{% load i18n %}
+
+<html lang="es-ar">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel='stylesheet' href="{% static 'css/foundation.min.css' %}">
+</head>
+
+<body style="background: pink">
+    <div class='grid-x grid-padding-x'>    
+    <form method='POST'>{% csrf_token %} 
+        {{ form.as_p }}
+        <button type='submit' style="background: orange"> Acceder </button>
+    </form>
+    </div>
+</body>
+
+<a href="{% url 'usuario_app:registre-usuario' %}" class="button" style="background: green">Registrarse</a>
